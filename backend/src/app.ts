@@ -1,5 +1,6 @@
 import express from "express"; 
 import cors from "cors"; 
+import V1Router from "./routes/v1/index.js";
 
 const createApp = () => {
     const app = express();  
@@ -8,9 +9,7 @@ const createApp = () => {
     app.use(express.json()); 
 
     // Routes
-    app.get("/", (req, res) => {
-        res.send("Hello World");
-    });
+    app.use("/api/v1", V1Router);
 
     
     return app;

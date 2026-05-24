@@ -1,0 +1,75 @@
+name: clinica
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: clinica
+      POSTGRES_PASSWORD: clinica
+      POSTGRES_DB: clinica
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U clinica -d clinica"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # backend:
+  #   image: node:22-alpine
+  #   working_dir: /app/backend
+  #   command: sh -c "npm install && npm run dev"
+  #   restart: unless-stopped
+  #   environment:
+  #     PORT: 3000
+  #     NODE_ENV: development
+  #     DATABASE_URL: postgres://clinica:clinica@postgres:5432/clinica
+  #     REDIS_URL: redis://redis:6379
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - ./backend:/app/backend
+  #     - backend_node_modules:/app/backend/node_modules
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #     redis:
+  #       condition: service_healthy
+
+  # frontend:
+  #   image: node:22-alpine
+  #   working_dir: /app/frontend
+  #   command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+  #   restart: unless-stopped
+  #   environment:
+  #     VITE_API_URL: http://localhost:3000/api/v1
+  #   ports:
+  #     - "5173:5173"
+  #   volumes:
+  #     - ./frontend:/app/frontend
+  #     - frontend_node_modules:/app/frontend/node_modules
+  #   depends_on:
+  #     - backend
+
+volumes:
+  postgres_data:
+  redis_data:
+  # backend_node_modules:
+  # frontend_node_modules:
