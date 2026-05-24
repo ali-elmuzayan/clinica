@@ -1,0 +1,26 @@
+{
+  "name": "Clinica medical app",
+  "version": "1.0.0",
+"description": "Full-stack MERN medical clinic application — Express 5 + React 19 monorepo with TypeScript, MongoDB, and shadcn/ui.",
+  "main": "backend/dist/index.js",
+  "scripts": {
+    "install:backend": "npm install --prefix backend",
+    "install:frontend": "npm install --prefix frontend", 
+    "install": "npm run install:backend && npm run install:frontend",
+    "start:backend": "npm start --prefix backend",
+    "start:frontend": "npm start --prefix frontend",
+    "start": "npm run start:backend && npm run start:frontend",
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "dev": "npm run dev:backend && npm run dev:frontend",
+    "build:backend": "npm run build --prefix backend",
+    "build:frontend": "npm run build --prefix frontend",
+    "build": "npm run build:backend && npm run build:frontend",
+    "test:backend": "npm run test --prefix backend",
+    "test:frontend": "npm run test --prefix frontend",
+    "test": "npm run test:backend && npm run test:frontend"
+  },
+  "keywords": ["Clinica medical app", "Clinica medical app backend", "Clinica medical app frontend"],
+  "author": "Ali Elmuzayn",
+  "license": "ISC"
+}
