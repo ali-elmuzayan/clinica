@@ -5,5 +5,9 @@ dotenv.config();
 export const env = {
     port: process.env.PORT || 3000,
     nodeEnv: process.env.NODE_ENV || "development",
-    mongoUri: process.env.MONGO_URI || "mongodb://localhost:27017/clinica",
+    dbHost: process.env.DB_HOST!,
+    dbPort: parseInt(process.env.DB_PORT!),
+    dbName: process.env.DB_NAME!,
+    dbUser: process.env.DB_USER!,
+    dbPassword: process.env.DB_PASSWORD!,
 };
